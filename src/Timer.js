@@ -21,7 +21,7 @@ class Timer extends Component {
     }
 
     convertToMinutes(sec) {
-        return this.addZero(Math.floor(sec / 60)) + ' : ' + this.addZero(sec % 60);
+        return this.addZero(Math.floor(sec / 60)) + ':' + this.addZero(sec % 60);
     }
 
     addZero(num) {
@@ -32,6 +32,14 @@ class Timer extends Component {
         }
     }
 
+    doShortBreak() {
+        this.setState({ seconds: 5 * 60 })
+    }
+
+    doLongBreak() {
+        this.setState({ seconds: 10 * 60 })
+    }
+
     componentWillUnmount() {
         clearInterval(this.timer);
     }
@@ -39,7 +47,19 @@ class Timer extends Component {
     render() {
         return (
             <div className="timer">
-                { this.convertToMinutes(this.state.seconds) }
+                <div className="timer__options">
+                    <a className="timer__option">Pomodoro</a>
+                    <a className="timer__option" onClick={ this.doShortBreak.bind(this) }>Short Break</a>
+                    <a className="timer__option" onClick={ this.doLongBreak.bind(this) }>Long Break</a>
+                </div>
+                <div className="timer__display">
+                    { this.convertToMinutes(this.state.seconds) }
+                </div>
+                <div className="timer__buttons">
+                    <a className="timer__btn  timer__btn--start">Start</a>
+                    <a className="timer__btn  timer__btn--stop">Stop</a>
+                    <a className="timer__btn  timer__btn--reset">Reset</a>
+                </div>
             </div>
         );
     }
