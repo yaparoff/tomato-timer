@@ -9,13 +9,6 @@ class Timer extends Component {
         this.state = { seconds: 25 * 60 };
     }
 
-    componentDidMount() {
-        this.timer = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-
     tick() {
         this.setState({ seconds: this.state.seconds - 1 })
     }
@@ -32,12 +25,27 @@ class Timer extends Component {
         }
     }
 
+    doPomodoroBreak() {
+        this.setState({ seconds: 25 * 60 });
+    }
+
     doShortBreak() {
-        this.setState({ seconds: 5 * 60 })
+        this.setState({ seconds: 5 * 60 });
     }
 
     doLongBreak() {
-        this.setState({ seconds: 10 * 60 })
+        this.setState({ seconds: 10 * 60 });
+    }
+
+    start() {
+        this.timer = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    stop() {
+        clearInterval(this.timer);
     }
 
     componentWillUnmount() {
@@ -48,7 +56,7 @@ class Timer extends Component {
         return (
             <div className="timer">
                 <div className="timer__options">
-                    <a className="timer__option">Pomodoro</a>
+                    <a className="timer__option" onClick={ this.doPomodoroBreak.bind(this) }>Pomodoro</a>
                     <a className="timer__option" onClick={ this.doShortBreak.bind(this) }>Short Break</a>
                     <a className="timer__option" onClick={ this.doLongBreak.bind(this) }>Long Break</a>
                 </div>
@@ -56,9 +64,9 @@ class Timer extends Component {
                     { this.convertToMinutes(this.state.seconds) }
                 </div>
                 <div className="timer__buttons">
-                    <a className="timer__btn  timer__btn--start">Start</a>
-                    <a className="timer__btn  timer__btn--stop">Stop</a>
-                    <a className="timer__btn  timer__btn--reset">Reset</a>
+                    <a className="timer__btn  timer__btn--start" onClick={ this.start.bind(this) }>Start</a>
+                    <a className="timer__btn  timer__btn--stop" onClick={ this.stop.bind(this) }>Stop</a>
+                    <a className="timer__btn  timer__btn--reset" onClick={ this.doPomodoroBreak.bind(this) }>Reset</a>
                 </div>
             </div>
         );
