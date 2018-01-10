@@ -6,7 +6,7 @@ class Timer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { seconds: 25 };
+        this.state = { seconds: 25 * 60 };
     }
 
     componentDidMount() {
@@ -20,6 +20,18 @@ class Timer extends Component {
         this.setState({ seconds: this.state.seconds - 1 })
     }
 
+    convertToMinutes(sec) {
+        return this.addZero(Math.floor(sec / 60)) + ' : ' + this.addZero(sec % 60);
+    }
+
+    addZero(num) {
+        if( num <= 9 ) {
+            return '0' + num;
+        } else {
+            return num;
+        }
+    }
+
     componentWillUnmount() {
         clearInterval(this.timer);
     }
@@ -27,7 +39,7 @@ class Timer extends Component {
     render() {
         return (
             <div className="timer">
-                { this.state.seconds }
+                { this.convertToMinutes(this.state.seconds) }
             </div>
         );
     }
