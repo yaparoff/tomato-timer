@@ -3,21 +3,27 @@ import Timer from './Timer'
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div>
-          <header className="header">
-              <h1 className="header__title">Tomato timer</h1>
-          </header>
-          <main>
-              <Timer />
-          </main>
-          <footer>
 
-          </footer>
-      </div>
-    );
-  }
+    signIn() {
+
+    }
+
+    render() {
+        return (
+            <div>
+                <header className="header">
+                    <h1 className="header__title">Tomato timer</h1>
+                    <a className="sign-link" onClick={ this.signIn }>Sign in</a>
+                </header>
+                <main>
+                    <Timer />
+                </main>
+                <footer>
+
+                </footer>
+            </div>
+        );
+    }
 }
 
 export default App;

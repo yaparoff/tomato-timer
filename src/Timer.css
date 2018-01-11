@@ -49,6 +49,7 @@
     cursor: pointer;
 }
 .timer__option:hover,
-.timer__option:active {
+.timer__option:active,
+.timer__option--active {
     background-color: #2284a1;
 }
