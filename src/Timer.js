@@ -14,7 +14,12 @@ class Timer extends Component {
     }
 
     convertToMinutes(sec) {
-        return this.addZero(Math.floor(sec / 60)) + ':' + this.addZero(sec % 60);
+        if (this.state.seconds == 0) {
+            clearInterval(this.timer);
+            return this.addZero(this.state.seconds) + ':' + this.addZero(this.state.seconds); // 00 : 00
+        } else {
+            return this.addZero(Math.floor(sec / 60)) + ':' + this.addZero(sec % 60);
+        }
     }
 
     addZero(num) {
@@ -30,7 +35,7 @@ class Timer extends Component {
     }
 
     doShortBreak() {
-        this.setState({ seconds: 5 * 60 });
+        this.setState({ seconds: 2 });
     }
 
     doLongBreak() {
@@ -38,6 +43,9 @@ class Timer extends Component {
     }
 
     start() {
+        if (this.state.seconds == 0) {
+            this.doPomodoroBreak();
+        }
         this.timer = setInterval(
             () => this.tick(),
             1000
